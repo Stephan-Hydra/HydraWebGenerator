@@ -4,7 +4,10 @@
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "Stephan-Hydra/generator-hydraweb",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Stephan-Hydra/HydraWebGenerator.git"
+  },
   "author": {
     "name": "Stéphan",
     "email": "",
