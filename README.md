@@ -3,7 +3,7 @@
 To install generator-hydraweb from npm, run:
 
 ```bash
-sudo npm install -g generator-hydraweb
+npm install -g generator-hydraweb
 ```
 
 Finally, initiate the generator:
