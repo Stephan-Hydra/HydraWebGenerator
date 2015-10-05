@@ -15,6 +15,16 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   writing: {
+    gulpfile: function () {
+      this.fs.copyTpl(
+        this.templatePath('gulpfile.babel.js'),
+        this.destinationPath('gulpfile.babel.js'),
+        {
+          date: (new Date).toISOString().split('T')[0]
+        }
+      );
+    },
+
     app: function () {
       this.fs.copy(
         this.templatePath('_package.json'),
@@ -26,14 +36,14 @@ module.exports = yeoman.generators.Base.extend({
       );
     },
 
-    projectfiles: function () {
+    git: function () {
       this.fs.copy(
-        this.templatePath('editorconfig'),
-        this.destinationPath('.editorconfig')
+        this.templatePath('gitignore'),
+        this.destinationPath('.gitignore')
       );
       this.fs.copy(
-        this.templatePath('jshintrc'),
-        this.destinationPath('.jshintrc')
+        this.templatePath('gitattributes'),
+        this.destinationPath('.gitattributes')
       );
     },
 
@@ -47,7 +57,60 @@ module.exports = yeoman.generators.Base.extend({
       mkdirp('code/dist/js/libs');
       mkdirp('code/dist/lang');
       mkdirp('code/dist/media');
+    },
+
+    html: function () {
+      this.fs.copyTpl(
+        this.templatePath('index.html'),
+        this.destinationPath('code/dist/index.html')
+      );
+    },
+
+    xml: function () {
+      this.fs.copyTpl(
+        this.templatePath('de.xml'),
+        this.destinationPath('code/dist/lang/de.xml')
+      );
+      this.fs.copyTpl(
+        this.templatePath('en.xml'),
+        this.destinationPath('code/dist/lang/en.xml')
+      );
+    },
+
+    styles: function () {
+      this.fs.copyTpl(
+        this.templatePath('main.scss'),
+        this.destinationPath('code/src/styles/main.scss')
+      );
+    },
+
+    scripts: function () {
+      this.fs.copy(
+        this.templatePath('main.js'),
+        this.destinationPath('code/src/scripts/main.js')
+      );
+    this.fs.copy(
+        this.templatePath('main.js'),
+        this.destinationPath('code/dist/js/main.min.js')
+      );
+    },
+
+    projectfiles: function () {
+      this.fs.copy(
+        this.templatePath('editorconfig'),
+        this.destinationPath('.editorconfig')
+      );
+      this.fs.copy(
+        this.templatePath('jshintrc'),
+        this.destinationPath('.jshintrc')
+      );
+      this.fs.copy(
+        this.templatePath('bowerrc'),
+        this.destinationPath('.bowerrc')
+      );
     }
+
+
   },
 
   install: function () {
