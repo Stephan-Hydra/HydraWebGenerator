@@ -67,6 +67,13 @@ module.exports = yeoman.generators.Base.extend({
       );
     },
 
+    template: function () {
+      this.fs.copyTpl(
+        this.templatePath('helloworld.hbs'),
+        this.destinationPath('code/src/templates/helloworld.hbs')
+      );
+    },
+
     xml: function () {
       this.fs.copyTpl(
         this.templatePath('de.xml'),

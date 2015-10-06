@@ -44,6 +44,7 @@ var getCopy = function(lang) {
 
 
 $(document).ready(function () {
+    $('#main').html(Templates.helloworld());
     getCopy('de');
     console.log('Hello JQuery!');
 });
