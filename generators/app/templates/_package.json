@@ -34,6 +34,9 @@
     "gulp-useref": "^1.1.1",
     "main-bower-files": "^2.5.0",
     "opn": "^1.0.1",
-    "wiredep": "^2.2.2"
+    "wiredep": "^2.2.2",
+    "gulp-declare": "^0.3.0",
+    "gulp-handlebars": "^4.0.0",
+    "gulp-wrap": "^0.11.0"
   }
 }

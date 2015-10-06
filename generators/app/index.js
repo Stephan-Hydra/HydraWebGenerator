@@ -20,7 +20,8 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('gulpfile.babel.js'),
         this.destinationPath('gulpfile.babel.js'),
         {
-          date: (new Date).toISOString().split('T')[0]
+          date: (new Date).toISOString().split('T')[0],
+          contents:'<%= contents %>'
         }
       );
     },

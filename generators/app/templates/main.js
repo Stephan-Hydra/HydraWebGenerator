@@ -1,10 +1,12 @@
+/* jshint ignore:start */
+
 var getCopy = function(lang) {
 
     // get language-specific xml
 	return $.ajax({
-        type: "GET",
-		url: "lang/" + lang + ".xml",
-		dataType: "text",
+        type: 'GET',
+		url: 'lang/' + lang + '.xml',
+		dataType: 'text',
         async: false,
         cache: false,
 		contentType : 'application/xml',
@@ -22,14 +24,17 @@ var getCopy = function(lang) {
 
 			$('[data-text]').each(function() {
 				var theID = '#' + $(this).attr('data-text');
-                if (theID != "#") {
+                if (theID != '#') {
 				    var theText = $(xmlDoc).find(theID).text();
                     $(this).html(theText);
                 }
 			});
 		},
         error: function(xmlReq, status, errorMsg){
-            //console.log(errorMsg);
+            console.log('--- ERROR ---');
+            console.log(xmlReq);
+            console.log(status);
+            console.log(errorMsg);
         }
 
 	});
@@ -42,3 +47,5 @@ $(document).ready(function () {
     getCopy('de');
     console.log('Hello JQuery!');
 });
+
+/* jshint ignore:end */
