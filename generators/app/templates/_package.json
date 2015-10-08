@@ -37,6 +37,10 @@
     "wiredep": "^2.2.2",
     "gulp-declare": "^0.3.0",
     "gulp-handlebars": "^4.0.0",
-    "gulp-wrap": "^0.11.0"
+    "gulp-wrap": "^0.11.0",
+    "gulp-inject":"^3.0.0",
+    "gulp-inject-string":"^0.0.2",
+    "gulp-replace":"^0.5.0",
+    "gulp-wait":"^0.0.2"
   }
 }

@@ -4,4 +4,9 @@ body {
   font-size: 120px;
   color: #52FD02;
   margin: 50px;
+
+    &:active {
+        color: #333;
+        background: #52FD02;
+    }
 }

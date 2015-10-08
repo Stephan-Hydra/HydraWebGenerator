@@ -12,6 +12,10 @@ import notify from 'gulp-notify';
 import handlebars from 'gulp-handlebars';
 import wrap from 'gulp-wrap';
 import declare from 'gulp-declare';
+import inject from 'gulp-inject';
+import injectstring from 'gulp-inject-string';
+import replace from 'gulp-replace';
+import wait from 'gulp-wait';
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -121,3 +125,79 @@ gulp.task('serve', ['html','styles', 'scripts','templates'], () => {
   gulp.watch('code/src/templates/**/*.hbs', ['templates']);
   gulp.watch('bower.json', ['wiredep', 'fonts']);
 });
+
+///////////
+// debug //
+///////////
+
+gulp.task('clean:debug', del.bind(null, ['code/dist/debug/*.*']));
+
+
+gulp.task('injectstring',['copy'], function(){
+    return gulp.src('code/dist/index.html')
+        .pipe(wait(250))
+        .pipe(injectstring.before('</head>', '\n<!-- inject:css -->\n<!-- endinject -->\n'))
+        .pipe(injectstring.before('</body>', '\n<!-- inject:js -->\n<!-- endinject -->\n'))
+        .pipe(rename('debug.html'))
+        .pipe(gulp.dest('code/dist'));
+
+});
+
+gulp.task('copy', function(){
+    return gulp.src('code/src/styles/**/*.scss')
+        .pipe($.plumber())
+        .pipe($.sourcemaps.init())
+        .pipe($.sass.sync({
+          outputStyle: 'expanded',
+          precision: 10,
+          includePaths: ['.']
+        }).on('error', $.sass.logError))
+        .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
+        .pipe($.sourcemaps.write())
+        .pipe(gulp.dest('code/dist/debug'))
+        .pipe(reload({stream: true}))
+        .pipe(gulp.src('code/src/scripts/**/*.js'))
+        .pipe(gulp.dest('code/dist/debug'));
+
+});
+
+gulp.task('inject',['injectstring'], function () {
+    return gulp.src("./code/dist/debug.html")
+    .pipe(wait(250))
+    .pipe(inject(gulp.src(['./code/dist/debug/*.js', './code/dist/debug/*.css'],{read: false})))
+    .pipe(gulp.dest("./code/dist/"));
+
+});
+
+gulp.task('replace',['inject'], function(){
+  return gulp.src(['code/dist/debug.html'])
+    .pipe(wait(250))
+    .pipe(replace('<title>', '<title>DEBUG '))
+    .pipe(replace('<link rel="stylesheet" href="main.css">', ''))
+    .pipe(replace('<script src="js/main.min.js"></script>', ''))
+    .pipe(replace('/code/dist', ''))
+    .pipe(gulp.dest('code/dist/'));
+});
+
+gulp.task('serve:debug',['replace'], () => {
+
+  browserSync({
+    notify: true,
+    port: 9000,
+    ui: false,
+    server: {
+      baseDir: 'code/dist',
+      index: "debug.html"
+    }
+  });
+
+  gulp.watch([
+    'code/src/*.html',
+    'code/src/scripts/**/*.js',
+    'code/src/styles/**/*.scss',
+    'code/src/templates/**/*.hbs'
+  ]).on('change', reload);
+
+});
+
+
