@@ -28,17 +28,17 @@ yo hydraweb
 
 # How to use
 
-To start the server, run:
+To compile, minify and uglify the files from src to dist and start the server, run:
 
 ```bash
 gulp serve
 ```
-This compile and minify the files from src to dist
 
 
-To start the server in debug modus, run:
+
+To bind all *.js and *.scss files in the debug.html, without minify and uglify to help you to debug, and start the server in debug modus, run:
 
 ```bash
 gulp serve:debug
 ```
-This bind all *.js and *.scss files in the debug.html, without minify and uglify to help you to debug
+This 
