@@ -21,22 +21,11 @@ const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
 
-function lint(files, options) {
-  return () => {
-    return gulp.src(files)
-      .pipe(reload({stream: true, once: true}))
-      .pipe($.eslint(options))
-      .pipe($.eslint.format())
-      .pipe($.if(!browserSync.active, $.eslint.failAfterError()));
-  };
-}
-const testLintOptions = {
-  env: {
-    mocha: true
-  }
-};
-
-gulp.task('lint', lint('code/src/scripts/**/*.js'));
+gulp.task('lint', function() {
+  return gulp.src('code/src/scripts/**/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
+});
 
 
 // Styles
@@ -143,7 +132,7 @@ gulp.task('injectstring',['copy'], function(){
 
 });
 
-gulp.task('copy', function(){
+gulp.task('copy',['lint'], function(){
     return gulp.src('code/src/styles/**/*.scss')
         .pipe($.plumber())
         .pipe($.sourcemaps.init())
@@ -197,6 +186,11 @@ gulp.task('serve:debug',['replace'], () => {
     'code/src/styles/**/*.scss',
     'code/src/templates/**/*.hbs'
   ]).on('change', reload);
+
+  gulp.watch('code/src/scripts/**/*.js', ['replace']);
+  gulp.watch('code/src/styles/**/*.scss', ['replace']);
+  gulp.watch('code/src/**/*.html', ['replace']);
+  gulp.watch('code/src/templates/**/*.hbs', ['replace']);
 
 });
 
