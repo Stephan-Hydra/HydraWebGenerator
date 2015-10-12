@@ -44,4 +44,3 @@ To bind all *.js and *.scss files in the debug.html, without minify and uglify t
 ```bash
 gulp serve:debug
 ```
-This 
