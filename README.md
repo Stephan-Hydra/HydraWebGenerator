@@ -8,6 +8,11 @@ install [yeoman](http://yeoman.io/).
 npm install -g yo
 ```
 
+install Bower
+```shell
+npm install -g bower
+```
+
 
 # generator-hydraweb installation
 
