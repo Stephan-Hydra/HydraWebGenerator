@@ -1,5 +1,7 @@
 # Prereqs and installation requirements
 
+download and install node.js (min. version 4.0.0) [node](https://nodejs.org/en/download/)
+
 install [yeoman](http://yeoman.io/).
 ```shell
 npm install -g yo
