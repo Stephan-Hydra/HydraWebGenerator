@@ -16,6 +16,8 @@ import inject from 'gulp-inject';
 import injectstring from 'gulp-inject-string';
 import replace from 'gulp-replace';
 import wait from 'gulp-wait';
+import minifycss from 'gulp-minify-css';
+
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -29,6 +31,7 @@ gulp.task('lint', function() {
 
 
 // Styles
+/*
 gulp.task('styles', () => {
   return gulp.src('code/src/styles/*.scss')
     .pipe($.plumber())
@@ -43,6 +46,22 @@ gulp.task('styles', () => {
     .pipe(gulp.dest('code/dist'))
     .pipe(reload({stream: true}));
 });
+*/
+
+gulp.task('styles', () => {
+return gulp.src('code/src/styles/main.scss')
+    .pipe($.sass({
+        style: 'expanded',
+        "sourcemap=none": true,
+        noCache: true
+    }))
+    .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe($.rename({ suffix: '.min' }))
+    .pipe(minifycss())
+    .pipe(gulp.dest('code/dist/'))
+    .pipe(reload({stream: true}));
+});
+
 
 
 
