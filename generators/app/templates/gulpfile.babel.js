@@ -49,8 +49,8 @@ gulp.task('styles', () => {
 // Scripts
 gulp.task('scripts', function() {
   return gulp.src('code/src/scripts/**/*.js')
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'))
+    //.pipe(jshint('.jshintrc'))
+    //.pipe(jshint.reporter('default'))
     .pipe(concat('main.js'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())
