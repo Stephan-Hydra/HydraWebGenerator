@@ -25,6 +25,7 @@ npm install -g generator-hydraweb
 
 # Create new web project
 
+Once every packages are installed on your computer, you can create new web projects.
 Go to your project's folder:
 
 ```bash
