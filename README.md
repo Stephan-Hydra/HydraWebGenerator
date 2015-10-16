@@ -23,6 +23,8 @@ To install generator-hydraweb from npm, run:
 npm install -g generator-hydraweb
 ```
 
+# Create new web project
+
 Go to your project's folder:
 
 ```bash
