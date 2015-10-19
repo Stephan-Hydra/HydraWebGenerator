@@ -106,6 +106,22 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('main.js'),
         this.destinationPath('code/dist/js/main.min.js')
       );
+    this.fs.copy(
+        this.templatePath('handlebars.min.js'),
+        this.destinationPath('code/dist/js/libs/handlebars.min.js')
+      );
+    this.fs.copy(
+        this.templatePath('jquery.easing.js'),
+        this.destinationPath('code/dist/js/libs/jquery.easing.js')
+      );
+    this.fs.copy(
+        this.templatePath('jquery.min.js'),
+        this.destinationPath('code/dist/js/libs/jquery.min.js')
+      );
+    this.fs.copy(
+        this.templatePath('modernizr.js'),
+        this.destinationPath('code/dist/js/libs/modernizr.js')
+      );
     },
 
     projectfiles: function () {
@@ -127,6 +143,8 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   install: function () {
-    this.installDependencies();
+    //this.installDependencies();
+      this.spawnCommand('npm', ['install']);
   }
+
 });

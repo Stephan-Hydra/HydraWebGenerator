@@ -31,23 +31,6 @@ gulp.task('lint', function() {
 
 
 // Styles
-/*
-gulp.task('styles', () => {
-  return gulp.src('code/src/styles/*.scss')
-    .pipe($.plumber())
-    .pipe($.sourcemaps.init())
-    .pipe($.sass.sync({
-      outputStyle: 'expanded',
-      precision: 10,
-      includePaths: ['.']
-    }).on('error', $.sass.logError))
-    .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
-    .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('code/dist'))
-    .pipe(reload({stream: true}));
-});
-*/
-
 gulp.task('styles', () => {
 return gulp.src('code/src/styles/main.scss')
     .pipe($.sass({
@@ -59,7 +42,7 @@ return gulp.src('code/src/styles/main.scss')
     .pipe($.rename({ suffix: '.min' }))
     .pipe(minifycss())
     .pipe(gulp.dest('code/dist/'))
-    .pipe(reload({stream: true}));
+    .pipe(reload({stream: true}))
 });
 
 
@@ -73,8 +56,8 @@ gulp.task('scripts', function() {
     .pipe(concat('main.js'))
     .pipe(rename({ suffix: '.min' }))
     .pipe(uglify())
-    .pipe(gulp.dest('code/dist/js'));
-    //.pipe(notify({ message: 'Scripts task complete' }));
+    .pipe(gulp.dest('code/dist/js'))
+    .pipe(reload({stream: true}));
 });
 
 
@@ -89,7 +72,8 @@ gulp.task('html', ['styles'], () => {
     .pipe(assets.restore())
     .pipe($.useref())
     .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
-    .pipe(gulp.dest('code/dist'));
+    .pipe(gulp.dest('code/dist'))
+    .pipe(reload({stream: true}));
 });
 
 
@@ -103,7 +87,8 @@ gulp.task('templates', function(){
         noRedeclare: true, // Avoid duplicate declarations
     }))
     .pipe(concat('templates.js'))
-    .pipe(gulp.dest('code/dist/js/'));
+    .pipe(gulp.dest('code/dist/js/'))
+    .pipe(reload({stream: true}));
 });
 
 
@@ -121,6 +106,7 @@ gulp.task('serve', ['html','styles', 'scripts','templates'], () => {
   });
 
   gulp.watch([
+    'code/dist/*.html',
     'code/src/*.html',
     'code/src/scripts/**/*.js',
     'code/src/styles/**/*.scss',
