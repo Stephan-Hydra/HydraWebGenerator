@@ -3,12 +3,6 @@
 [download and install node.js](https://nodejs.org/en/download/) 
 (need version 4.0.0 or more)
 
-
-install Bower
-```shell
-npm install -g bower
-```
-
 install [yeoman](http://yeoman.io/).
 ```shell
 npm install -g yo
