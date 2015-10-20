@@ -31,10 +31,12 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('_package.json'),
         this.destinationPath('package.json')
       );
+      /*
       this.fs.copy(
         this.templatePath('_bower.json'),
         this.destinationPath('bower.json')
       );
+      */
     },
 
     git: function () {
@@ -133,10 +135,12 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('jshintrc'),
         this.destinationPath('.jshintrc')
       );
+    /*
       this.fs.copy(
         this.templatePath('bowerrc'),
         this.destinationPath('.bowerrc')
       );
+      */
     }
 
 
