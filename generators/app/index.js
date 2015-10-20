@@ -121,6 +121,10 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('code/dist/js/libs/jquery.min.js')
       );
     this.fs.copy(
+        this.templatePath('jquery.min.map'),
+        this.destinationPath('code/dist/js/libs/jquery.min.map')
+      );
+    this.fs.copy(
         this.templatePath('modernizr.js'),
         this.destinationPath('code/dist/js/libs/modernizr.js')
       );
