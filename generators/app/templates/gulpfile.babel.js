@@ -91,9 +91,23 @@ gulp.task('templates', function(){
     .pipe(reload({stream: true}));
 });
 
+// lang xml
+gulp.task('lang', function(){
+    gulp.src('code/src/lang/**/*.xml')
+    .pipe(replace('<![CDATA[', ''))
+    .pipe(replace(']]>', ''))
+
+    .pipe(replace(/<\/text>/g, ']]><\/text>'))
+
+    .pipe(replace(/<text id="([^\"]*)">([^\]\]\>\<]*)/g, '<text id="$1"><![CDATA[$2'))
+
+    .pipe(gulp.dest('code/dist/lang'))
+    .pipe(reload({stream: true}));
+});
+
 
 // server
-gulp.task('serve', ['html','styles', 'scripts','templates'], () => {
+gulp.task('serve', ['lang','html','styles', 'scripts','templates'], () => {
   browserSync({
     notify: false,
     port: 9000,
@@ -110,14 +124,15 @@ gulp.task('serve', ['html','styles', 'scripts','templates'], () => {
     'code/src/*.html',
     'code/src/scripts/**/*.js',
     'code/src/styles/**/*.scss',
-    'code/src/templates/**/*.hbs'
+    'code/src/templates/**/*.hbs',
+    'code/src/lang/**/*.xml'
   ]).on('change', reload);
 
   gulp.watch('code/src/scripts/**/*.js', ['scripts']);
   gulp.watch('code/src/styles/**/*.scss', ['styles']);
   gulp.watch('code/src/**/*.html', ['html']);
   gulp.watch('code/src/templates/**/*.hbs', ['templates']);
-  gulp.watch('bower.json', ['wiredep', 'fonts']);
+  gulp.watch('code/src/lang/**/*.xml', ['lang']);
 });
 
 ///////////

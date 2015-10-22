@@ -60,6 +60,7 @@ module.exports = yeoman.generators.Base.extend({
       mkdirp('code/dist/js/libs');
       mkdirp('code/dist/debug');
       mkdirp('code/dist/lang');
+      mkdirp('code/src/lang');
       mkdirp('code/dist/media');
     },
 
@@ -84,11 +85,11 @@ module.exports = yeoman.generators.Base.extend({
     xml: function () {
       this.fs.copyTpl(
         this.templatePath('de.xml'),
-        this.destinationPath('code/dist/lang/de.xml')
+        this.destinationPath('code/src/lang/de.xml')
       );
       this.fs.copyTpl(
         this.templatePath('en.xml'),
-        this.destinationPath('code/dist/lang/en.xml')
+        this.destinationPath('code/src/lang/en.xml')
       );
     },
 
