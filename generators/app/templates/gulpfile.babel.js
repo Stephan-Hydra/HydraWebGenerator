@@ -38,7 +38,7 @@ return gulp.src('code/src/styles/main.scss')
         "sourcemap=none": true,
         noCache: true
     }))
-    .pipe($.autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'ie >= 9', 'Firefox ESR']}))
     .pipe($.rename({ suffix: '.min' }))
     .pipe(minifycss())
     .pipe(gulp.dest('code/dist/'))
@@ -161,7 +161,7 @@ gulp.task('copy',['lint'], function(){
           precision: 10,
           includePaths: ['.']
         }).on('error', $.sass.logError))
-        .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
+        .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'ie >= 9', 'Firefox ESR']}))
         .pipe($.sourcemaps.write())
         .pipe(gulp.dest('code/dist/debug'))
         .pipe(reload({stream: true}))
