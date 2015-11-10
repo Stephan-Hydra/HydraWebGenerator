@@ -1,4 +1,4 @@
-// generated on <%= date %>
+// generated on 2015-10-28
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
@@ -42,6 +42,7 @@ return gulp.src('code/src/styles/main.scss')
     .pipe($.rename({ suffix: '.min' }))
     .pipe(minifycss())
     .pipe(gulp.dest('code/dist/'))
+    .pipe(wait(250))
     .pipe(reload({stream: true}))
 });
 
@@ -111,6 +112,7 @@ gulp.task('serve', ['lang','html','styles', 'scripts','templates'], () => {
   browserSync({
     notify: false,
     port: 9000,
+    https: false,
     server: {
       baseDir: ['code/dist'],
       routes: {
@@ -121,11 +123,6 @@ gulp.task('serve', ['lang','html','styles', 'scripts','templates'], () => {
 
   gulp.watch([
     'code/dist/*.html',
-    'code/src/*.html',
-    'code/src/scripts/**/*.js',
-    'code/src/styles/**/*.scss',
-    'code/src/templates/**/*.hbs',
-    'code/src/lang/**/*.xml'
   ]).on('change', reload);
 
   gulp.watch('code/src/scripts/**/*.js', ['scripts']);
@@ -173,7 +170,7 @@ gulp.task('copy',['lint'], function(){
 gulp.task('inject',['injectstring'], function () {
     return gulp.src("./code/dist/debug.html")
     .pipe(wait(250))
-    .pipe(inject(gulp.src(['./code/dist/debug/*.js', './code/dist/debug/*.css'],{read: false})))
+    .pipe(inject(gulp.src(['./code/dist/debug/**/*.js', './code/dist/debug/*.css'],{read: false})))
     .pipe(gulp.dest("./code/dist/"));
 
 });
