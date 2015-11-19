@@ -98,6 +98,9 @@ gulp.task('lang', function(){
     .pipe(replace('<![CDATA[', ''))
     .pipe(replace(']]>', ''))
 
+    .pipe(replace('\'','&apos;'))
+    .pipe(replace(' & ',' &amp; '))
+
     .pipe(replace(/<\/text>/g, ']]><\/text>'))
 
     .pipe(replace(/<text id="([^\"]*)">([^\]\]\>\<]*)/g, '<text id="$1"><![CDATA[$2'))
